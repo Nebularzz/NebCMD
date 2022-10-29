@@ -17,17 +17,18 @@ textbox.TextColor3 = Color3.new(1,1,1)
 textbox.Text = ""
 textbox.TextSize = 20
 textbox.TextScaled = true
+textbox.PlaceholderText = "Names are case-sensitive"
 
 --// commands
 
-local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze"} --// commands 
+local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze", "febring", "commands"} --// commands 
 
 local splitter = "#" --// this is the character that splits the command. For example: "freeze*splitter*playername" *splitter* is the character you have set it to.
 
 
 is.InputBegan:Connect(function(inp)
 	if inp.KeyCode == Enum.KeyCode.Return then
-		
+
 		local cmd = textbox.Text:split(splitter) --// the whole command, split into 2 pieces
 		local action = string.lower(cmd[1]) --// the command
 		local plr = cmd[2] --// usually the player, can be numbers or strings
@@ -51,15 +52,15 @@ is.InputBegan:Connect(function(inp)
 		if action == commands[4] then
 			game.Players.LocalPlayer:Kick("force leave called")
 		end
-		
+
 		if action == commands[5] then
 			screenUI:Destroy()
 		end
-		
+
 		if action == commands[6] then
 			splitter = plr
 		end
-		
+
 		if action == commands[7] then
 			for i,v in pairs(game.Players:FindFirstChild(plr).Character:GetChildren()) do
 				if v:IsA("Part") then
@@ -67,6 +68,18 @@ is.InputBegan:Connect(function(inp)
 				end
 			end
 		end
+
+		if action == commands[8] then
+			game.Players:FindFirstChild(plr).Character:MoveTo(game.Players.LocalPlayer.Character.PrimaryPart.Position)
+		end
+
+		if action == commands[9] then
+			print("Commands: ")
+			for i,v in commands do
+				print(v)
+			end
+		end
+		
+		
 	end
 end)
-
