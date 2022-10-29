@@ -1,0 +1,72 @@
+--// variables
+local screenUI = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
+local textbox = Instance.new("TextBox",screenUI)
+local is = game:GetService("UserInputService")
+
+--// colors
+textbox.BackgroundColor3 = Color3.new(0,0,0)
+textbox.BorderColor3 = Color3.new(0,0,0)
+
+--// scaling
+textbox.Position = UDim2.new(0.86,0,0.9,0)
+textbox.Size = UDim2.new(0,200,0,50)
+
+--// text
+textbox.Font = Enum.Font.Code
+textbox.TextColor3 = Color3.new(1,1,1)
+textbox.Text = ""
+textbox.TextSize = 20
+textbox.TextScaled = true
+
+--// commands
+
+local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze"} --// commands 
+
+local splitter = "#" --// this is the character that splits the command. For example: "freeze*splitter*playername" *splitter* is the character you have set it to.
+
+
+is.InputBegan:Connect(function(inp)
+	if inp.KeyCode == Enum.KeyCode.Return then
+		
+		local cmd = textbox.Text:split(splitter) --// the whole command, split into 2 pieces
+		local action = string.lower(cmd[1]) --// the command
+		local plr = cmd[2] --// usually the player, can be numbers or strings
+
+		if action == commands[2] then
+			for i,v in pairs(game.Players:FindFirstChild(plr).Character:GetChildren()) do
+				if v:IsA("Part") then
+					v.Anchored = true
+				end
+			end
+		end
+
+		if action == commands[1] then
+			print(plr)
+		end
+
+		if action == commands[3] then
+			settings().Network.IncomingReplicationLag = plr
+		end
+
+		if action == commands[4] then
+			game.Players.LocalPlayer:Kick("force leave called")
+		end
+		
+		if action == commands[5] then
+			screenUI:Destroy()
+		end
+		
+		if action == commands[6] then
+			splitter = plr
+		end
+		
+		if action == commands[7] then
+			for i,v in pairs(game.Players:FindFirstChild(plr).Character:GetChildren()) do
+				if v:IsA("Part") then
+					v.Anchored = false
+				end
+			end
+		end
+	end
+end)
+
