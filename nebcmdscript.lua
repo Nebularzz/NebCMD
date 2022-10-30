@@ -22,7 +22,7 @@ textbox.PlaceholderText = "Names are case-sensitive"
 
 --// commands
 
-local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze", "febring", "commands", "speed", "version", "getobjname", "getplayernames"} --// commands 
+local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze", "febring", "commands", "speed", "version", "getobjname", "getplayernames", "tpto"} --// commands 
 
 
 local splitter = "#" --// this is the character that splits the command. For example: "freeze*splitter*playername" *splitter* is the character you have set it to.
@@ -100,6 +100,11 @@ is.InputBegan:Connect(function(inp) --// Executes everything when the return (en
 			for _,v in game.Players:GetPlayers() do
 				print(v)
 			end
+		end
+
+		if action == commands[14] then
+			game.Players:FindFirstChild(plr).Character:MoveTo(game.Players.LocalPlayer.Character.PrimaryPart.Position)
+			game.Players.LocalPlayer.Character:MoveTo(game.Players:FindFirstChild(plr).Character.PrimaryPart)
 		end
 	end
 end)
