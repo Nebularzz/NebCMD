@@ -103,8 +103,8 @@ is.InputBegan:Connect(function(inp) --// Executes everything when the return (en
 		end
 
 		if action == commands[14] then
-			game.Players:FindFirstChild(plr).Character:MoveTo(game.Players.LocalPlayer.Character.PrimaryPart.Position)
-			game.Players.LocalPlayer.Character:MoveTo(game.Players:FindFirstChild(plr).Character.PrimaryPart)
+			local char = game.Players:FindFirstChild(plr).Character
+			game.Players.LocalPlayer.Character:MoveTo(char.PrimaryPart.Position)
 		end
 
 		if action == commands[15] then
