@@ -3,6 +3,7 @@ local screenUI = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
 local textbox = Instance.new("TextBox",screenUI)
 local is = game:GetService("UserInputService")
 screenUI.ResetOnSpawn = false
+local rc = false
 
 --// colors
 textbox.BackgroundColor3 = Color3.new(0,0,0)
@@ -15,14 +16,14 @@ textbox.Size = UDim2.new(0,200,0,50)
 --// text
 textbox.Font = Enum.Font.Code
 textbox.TextColor3 = Color3.new(1,1,1)
-textbox.Text = ""
+textbox.Text = "Welcome to NebCmd! Type commands and hit enter!"
 textbox.TextSize = 20
 textbox.TextScaled = true
 textbox.PlaceholderText = "Names are case-sensitive"
 
 --// commands
 
-local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze", "febring", "commands", "speed", "version", "getobjname", "getplayernames", "tpto"} --// commands 
+local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze", "febring", "commands", "speed", "version", "getobjname", "getplayernames", "tpto", "gravity", "ghost", "rainbow", "unrainbow"} --// commands 
 
 
 local splitter = "#" --// this is the character that splits the command. For example: "freeze*splitter*playername" *splitter* is the character you have set it to.
@@ -76,8 +77,7 @@ is.InputBegan:Connect(function(inp) --// Executes everything when the return (en
 		end
 
 		if action == commands[9] then
-			print("Commands: ")
-			for i,v in commands do
+			for _,v in commands do
 				print(v)
 			end
 		end
@@ -87,7 +87,7 @@ is.InputBegan:Connect(function(inp) --// Executes everything when the return (en
 		end
 
 		if action == commands[11] then
-			textbox.Text = "NebCmd version 0.3.1 programmed in ".._VERSION.." thanks for using NebCmd! ヾ(•ω•`)o" --// thank you for using NebCmd 
+			textbox.Text = "NebCmd version 0.4 programmed in ".._VERSION.." thanks for using NebCmd! ヾ(•ω•`)o" --// thank you for using NebCmd 
 		end
 
 		if action == commands[12] then
@@ -106,5 +106,49 @@ is.InputBegan:Connect(function(inp) --// Executes everything when the return (en
 			game.Players:FindFirstChild(plr).Character:MoveTo(game.Players.LocalPlayer.Character.PrimaryPart.Position)
 			game.Players.LocalPlayer.Character:MoveTo(game.Players:FindFirstChild(plr).Character.PrimaryPart)
 		end
+
+		if action == commands[15] then
+			workspace.Gravity = plr
+		end
+
+		if action == commands[16] then
+			for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+				if v:IsA("Accessory") then
+					v:Destroy()
+				end
+
+				if v:IsA("MeshPart") then
+					v.Material = Enum.Material.ForceField
+				end
+
+				if v:IsA("Shirt") then
+					v:Destroy()
+				end
+
+				if v:IsA("Pants") then
+					v:Destroy()
+				end
+			end
+		end
+
+		if action == commands[17] then
+			rc = true
+			for i,v in pairs(game.Workspace:GetChildren()) do
+				if v:IsA("Part") then
+					while rc == true do
+						v.BrickColor = BrickColor.random()
+						wait()
+					end
+				end
+			end
+		end
+
+		if action == commands[18] then
+			rc = false
+		end
 	end
 end)
+
+warn("\n███╗░░██╗███████╗██████╗░░█████╗░███╗░░░███╗██████╗░\n████╗░██║██╔════╝██╔══██╗██╔══██╗████╗░████║██╔══██╗\n██╔██╗██║█████╗░░██████╦╝██║░░╚═╝██╔████╔██║██║░░██║\n██║╚████║██╔══╝░░██╔══██╗██║░░██╗██║╚██╔╝██║██║░░██║\n██║░╚███║███████╗██████╦╝╚█████╔╝██║░╚═╝░██║██████╔╝\n╚═╝░░╚══╝╚══════╝╚═════╝░░╚════╝░╚═╝░░░░░╚═╝╚═════╝░\n")
+
+print("Thanks for using NebCmd! ヾ(•ω•`)o")
