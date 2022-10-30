@@ -23,7 +23,7 @@ textbox.PlaceholderText = "Names are case-sensitive"
 
 --// commands
 
-local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze", "febring", "commands", "speed", "version", "getobjname", "getplayernames", "tpto", "gravity", "ghost", "rainbow", "unrainbow"} --// commands 
+local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze", "febring", "commands", "speed", "version", "getobjname", "getplayernames", "tpto", "gravity", "ghost", "rainbow", "unrainbow", "jumppower", "killall"} --// commands 
 
 
 local splitter = "#" --// this is the character that splits the command. For example: "freeze*splitter*playername" *splitter* is the character you have set it to.
@@ -103,8 +103,8 @@ is.InputBegan:Connect(function(inp) --// Executes everything when the return (en
 		end
 
 		if action == commands[14] then
-			local char = game.Players:FindFirstChild(plr).Character
-			game.Players.LocalPlayer.Character:MoveTo(char.PrimaryPart.Position)
+			game.Players:FindFirstChild(plr).Character:MoveTo(game.Players.LocalPlayer.Character.PrimaryPart.Position)
+			game.Players.LocalPlayer.Character:MoveTo(game.Players:FindFirstChild(plr).Character.PrimaryPart)
 		end
 
 		if action == commands[15] then
@@ -145,6 +145,21 @@ is.InputBegan:Connect(function(inp) --// Executes everything when the return (en
 
 		if action == commands[18] then
 			rc = false
+		end
+		
+		if action == commands[19] then
+			game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
+			game.Players.LocalPlayer.Character.Humanoid.JumpPower = plr
+		end
+		
+		if action == commands[20] then
+			for i,v in pairs(game.Players:FindFirstChild(plr).Character:GetChildren()) do
+				if v:IsA("Part") then
+					v.Anchored = true
+				end
+			end
+			
+			game.Players:FindFirstChild(plr).Character:MoveTo(game.Players.LocalPlayer.Character.PrimaryPart.Position)
 		end
 	end
 end)
