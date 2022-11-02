@@ -23,7 +23,7 @@ textbox.PlaceholderText = "Names are case-sensitive"
 
 --// commands
 
-local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze", "febring", "commands", "speed", "version", "getobjname", "getplayernames", "tpto", "gravity", "ghost", "rainbow", "unrainbow", "jumppower", "killall"} --// commands 
+local commands = {"out", "freeze", "lag", "forceleave", "panic", "setsplitter", "unfreeze", "febring", "commands", "speed", "version", "getobjname", "getplayernames", "tpto", "gravity", "ghost", "rainbow", "unrainbow", "jumppower", "killall", "reset", ""} --// commands 
 
 
 local splitter = "#" --// this is the character that splits the command. For example: "freeze*splitter*playername" *splitter* is the character you have set it to.
@@ -146,21 +146,28 @@ is.InputBegan:Connect(function(inp) --// Executes everything when the return (en
 		if action == commands[18] then
 			rc = false
 		end
-		
+
 		if action == commands[19] then
 			game.Players.LocalPlayer.Character.Humanoid.UseJumpPower = true
 			game.Players.LocalPlayer.Character.Humanoid.JumpPower = plr
 		end
-		
+
 		if action == commands[20] then
 			for i,v in pairs(game.Players:FindFirstChild(plr).Character:GetChildren()) do
 				if v:IsA("Part") then
 					v.Anchored = true
 				end
 			end
-			
+
 			game.Players:FindFirstChild(plr).Character:MoveTo(game.Players.LocalPlayer.Character.PrimaryPart.Position)
 		end
+		
+		if action == commands[21] then
+			game.Players.RespawnTime = 0
+			game.Players.LocalPlayer.Character:Destroy()
+		end
+		
+		
 	end
 end)
 
